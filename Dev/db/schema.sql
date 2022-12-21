@@ -1,2 +1,0 @@
-DROP DATABASE IF EXISTS twytter_db;
-CREATE DATABASE twytter_db;
