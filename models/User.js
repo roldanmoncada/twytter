@@ -42,13 +42,13 @@ User.init({
       key: "id",
     },
   },
-  following_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: "follower",
-      key: "id",
-    },
-  },
+  // following_id: {
+  //   type: DataTypes.INTEGER,
+  //   references: {
+  //     model: "follower",
+  //     key: "id",
+  //   },
+  // },
 },
 //hooks to hash password before creating and before updating
 {
