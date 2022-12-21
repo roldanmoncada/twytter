@@ -15,8 +15,16 @@ const loginFormHandler = async function (event) {
     });
 
     if (response.ok) {
-      // If successful, redirect the browser to the profile page
-      document.location.replace("/profile");
+      // If successful, redirect the browser to the user dashboard page
+      // When hitting this route with auth, the user data will be retrieved and rendered on dashboard page.
+      document.location.replace("/dashboard");
+      // Get user data, including photo, name, number of followers, number of following, recent user posts and recent followers' posts (and render on the profile page)
+
+      // Get all followers data (and render the followers page through handlebars)
+
+      // Get all following data (and render the following page through handlebars)
+
+      // Get following users' recent posts (and render on the dashboard page)
     } else {
       alert(response.statusText);
     }
