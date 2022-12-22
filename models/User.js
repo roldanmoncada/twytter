@@ -35,18 +35,25 @@ User.init({
     },
   },
    
-  follower_id: {
+  following_id: {
     type: DataTypes.INTEGER,
     references: {
       model: "follower",
-      key: "id",
+      key: "following_id",
+    },
+  },
+  user_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: "follower",
+      key: "user_id",
     },
   },
   // following_id: {
   //   type: DataTypes.INTEGER,
   //   references: {
   //     model: "follower",
-  //     key: "id",
+  //     key: "user_id",
   //   },
   // },
 },
