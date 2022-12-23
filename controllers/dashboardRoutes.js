@@ -65,4 +65,44 @@ router.get('/user/:id', withAuth, async (req,res) => {
     }
 });
 
+router.get('/create', withAuth, async (req,res) => {
+    try {
+        const newPostData = await Post.findAll({
+            where: {
+                user_id: req.session.user_id
+            },
+            attributes: [
+                'id',
+                'title',
+                'created_at',
+                'post_content'
+            ],
+            include: [
+                {
+                    model: User,
+                    attributes: ['username']
+                },
+                {
+                    model: Comment,
+                    attributes: [
+                        'id',
+                        'title',
+                        'created_at',
+                        'post_content'
+                    ],
+                    include: {
+                        model: User,
+                        attributes: ['username']
+                    }
+                }
+            ]
+        });
+
+        const posts = newPostData.map(post => post.get({ plain: true }));
+        res.render('create-post', { posts, logged_in: true });
+    } catch (error) {
+        res.status(500).json(error)
+    }
+});
+
 module.exports  = router;
