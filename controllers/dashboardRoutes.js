@@ -2,9 +2,45 @@ const router = require('express').Router();
 const { User, Follower, Post, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
-router.get('/dashboard', withAuth, async (req,res) => {
+router.get('/', withAuth, async (req,res) => {
     try {
-        
+        const dbPostData = await Post.findAll({
+            where: {
+                user_id: req.session.user_id
+            },
+            attributes: [
+                'id',
+                'title',
+                'created_at',
+                'post_content'
+            ],
+            include: [
+                {
+                    model: Comment,
+                    attributes: [
+                        'id',
+                        'comment_text',
+                        'post_id',
+                        'user_id',
+                        'created_at'
+                    ],
+                    include: {
+                        model: User,
+                        attributes: ['username']
+                    }
+                },
+                {
+                    model: User,
+                    attributes: ['username']
+                }
+            ]
+        });
+
+        const posts = dbPostData.map(post => post.get({plain:true}));
+        res.render('dashboard', {
+            posts,
+            logged_in: req.session.logged_in
+        });
     } catch (error) {
         res.status(500).json(error);
     }
@@ -28,3 +64,5 @@ router.get('/user/:id', withAuth, async (req,res) => {
         res.status(500).json(error);
     }
 });
+
+module.exports  = router;

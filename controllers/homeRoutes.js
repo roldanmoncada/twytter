@@ -8,19 +8,16 @@ router.get("/", async (req, res) => {
       res.redirect("/dashboard");
       return;
     }
-    res.render("homeroutes");
+    res.render("home");
   } catch (error) {
     res.status(500).json(error);
   }
 });
 
 router.get("/login", (req, res) => {
-  // If the user is already logged in, their request is redirected to their dashboard page.
-  if (req.session.logged_in) {
-    res.redirect("/dashboard");
-    return;
-  }
-  // rendering the login.handlebars file if the user is not logged in.
+  // Removed the chunk about redirecting to the dashboard if already logged in since it makes more sense to check in the above block.
+
+  // since the login check is handled above, this would be all we need to do with the login route to my knowledge.
   res.render("login");
 });
 
