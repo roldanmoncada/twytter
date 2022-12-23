@@ -11,7 +11,13 @@ Follower.init(
       primaryKey: true,
       autoIncrement: true,
     },
-     
+    following_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "user",
+        key: "id",
+      },
+    },
      
     user_id: {
       type: DataTypes.INTEGER,

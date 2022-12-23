@@ -29,13 +29,17 @@ Comment.belongsTo(Post, {
   foreignKey: "post_id",
 });
 
-User.belongsToMany(Follower, {
-  as: "Followers",
-  foreignKey: "Following_Id",
+ 
+User.hasMany(Follower, {
+  as: "following",
+  foreignKey: "user_id",
 });
-Follower.belongsToMany(User, {
-  as: "Following",
-  foreignKey: "Follower_Id",
+User.hasMany(Follower, {
+  as: "followers",
+  foreignKey: "following_id",
 });
+
+//or 
+ 
  
 module.exports = { User, Post, Comment, Follower };
