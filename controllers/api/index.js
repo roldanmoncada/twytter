@@ -1,0 +1,6 @@
+const router = require("express").Router();
+// PLACEHOLDER FOR THE CONSTS IN WHICH WE'RE STORING THE REQUIRED API ROUTES
+
+// PLACEHOLDER FOR THE ROUTER.USE LINES OF CODE
+
+module.exports = router;
