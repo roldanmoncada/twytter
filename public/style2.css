@@ -1,0 +1,146 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* header style */
+
+header {
+  background-color: #000;
+  color: #fff;
+  height: 80px;
+  width: 100%;
+  display: block;
+}
+
+.inner_header {
+  width: 70%;
+  height: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+.logoContainer {
+  height: 100%;
+  display: table;
+  float: left;
+}
+
+.logoContainer h1 {
+  height: 100%;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 32px;
+  font-family: monospace;
+}
+
+.navigation {
+  float: right;
+  height: 100%;
+}
+
+.navigation a {
+  height: 100%;
+  display: table;
+  float: left;
+  padding: 20px;
+  text-decoration: none;
+}
+.navigation li {
+  list-style: none;
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+}
+
+.navigation a li {
+  display: table;
+  vertical-align: middle;
+}
+
+.navigation a:last-child {
+  padding-right: 0;
+}
+
+footer {
+  background-color: #000;
+  color: #fff;
+  height: 60px;
+  width: 100%;
+  display: block;
+}
+
+.inner_footer {
+  width: 60%;
+  height: 100%;
+  display: block;
+  margin: 0 auto;
+}
+.logoContainer h4 {
+  height: 100%;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 16px;
+  font-family: monospace;
+}
+
+/* body */
+
+.body {
+  background: #dfe9f5;
+}
+
+.container {
+  display: flex;
+}
+nav {
+  top: 0;
+  bottom: 0;
+  height: 100vh;
+  left: 0;
+  background: #fff;
+  width: 280px;
+  overflow: hidden;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+.logo {
+  text-align: center;
+  display: flex;
+  margin: 10px 0 0 10px;
+}
+.logo span {
+  font-weight: bold;
+  padding-left: 15px;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+a {
+  position: relative;
+  font-size: 14px;
+  display: table;
+  padding: 10px;
+  text-decoration: none;
+}
+
+nav .fas {
+  position: relative;
+  width: 70px;
+  height: 40px;
+  top: 14px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.nav-item {
+  position: relative;
+  top: 12px;
+  margin-left: 10px;
+}
+
+.logout {
+  position: absolute;
+  bottom: 0;
+}
