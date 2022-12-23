@@ -49,7 +49,17 @@ router.get('/', withAuth, async (req,res) => {
 // I think /user should be for the current user's profile page. Which is different from their dashboard view.
 router.get('/user', withAuth, async (req,res) => {
     try {
-        
+        const userData = await User.findbyPK(req.session.user_id, {
+            attributes: { exclude: ['password'] },
+            include: [{ model: User }],
+        });
+
+        const userProfile = userData.get({ plain: true });
+
+        res.render('profile', {
+            ...user,
+            logged_in: true
+        });
     } catch (error) {
         res.status(500).json(error);
     }
