@@ -115,4 +115,12 @@ router.get('/create', withAuth, async (req,res) => {
     }
 });
 
+router.get('/user/:id', withAuth, async (req,res) => {
+    try {
+        
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+
 module.exports  = router;
