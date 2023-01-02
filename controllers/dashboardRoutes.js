@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { User, Follower, Post, Comment } = require('../models');
 const withAuth = require('../utils/auth');
-
+//getting the dashboard page including feed
 router.get('/', withAuth, async (req,res) => {
     try {
         const dbPostData = await Post.findAll({
@@ -12,26 +12,30 @@ router.get('/', withAuth, async (req,res) => {
                 'id',
                 'title',
                 'created_at',
-                'post_content'
+                'body',
+                'user_id',
+                
+
+
             ],
             include: [
                 {
                     model: Comment,
                     attributes: [
                         'id',
-                        'comment_text',
+                        'body',
                         'post_id',
                         'user_id',
                         'created_at'
                     ],
                     include: {
                         model: User,
-                        attributes: ['username']
+                        attributes: ['name']
                     }
                 },
                 {
                     model: User,
-                    attributes: ['username']
+                    attributes: ['name']
                 }
             ]
         });
@@ -46,10 +50,10 @@ router.get('/', withAuth, async (req,res) => {
     }
 });
 
-// I think /user should be for the current user's profile page. Which is different from their dashboard view.
-router.get('/user', withAuth, async (req,res) => {
+// I think /user should be for the current user's profile page. Which is different from their dashboard view. //Heidrun: changed into /profile since there need to be /user routes for rendering json data of user data
+router.get('/profile', withAuth, async (req,res) => {
     try {
-        const userData = await User.findbyPK(req.session.user_id, {
+        const userData = await User.findByPK(req.session.user_id, {
             attributes: { exclude: ['password'] },
             include: [{ model: User }],
         });
@@ -74,7 +78,7 @@ router.get('/user/:id', withAuth, async (req,res) => {
         res.status(500).json(error);
     }
 });
-
+//create a post page
 router.get('/create', withAuth, async (req,res) => {
     try {
         const newPostData = await Post.findAll({
@@ -85,24 +89,25 @@ router.get('/create', withAuth, async (req,res) => {
                 'id',
                 'title',
                 'created_at',
-                'post_content'
+                'body'
             ],
             include: [
                 {
                     model: User,
-                    attributes: ['username']
+                    attributes: ['name']
                 },
                 {
                     model: Comment,
                     attributes: [
                         'id',
-                        'title',
+                        'body',
                         'created_at',
-                        'post_content'
+                        'user_id'
+                        
                     ],
                     include: {
                         model: User,
-                        attributes: ['username']
+                        attributes: ['name']
                     }
                 }
             ]
