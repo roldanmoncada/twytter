@@ -76,7 +76,11 @@
 
 <div class="course-box">
   {{> post-info post}}
+  <a>{{user.username}}</a>|<a href="">github</a>|<a
+          href=""
+        >12/27/2022</a>|<a href="/post/{{post.id}}">{{post.comments.length}} comments</a>
   <div style="text-align: right; border: 0;">
+    
  <button class="startButton1" >
           <a
             href="/dashboard/edit/{{post.id}}"

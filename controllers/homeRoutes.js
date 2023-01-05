@@ -93,7 +93,7 @@ router.get("/post/:id", (req, res) => {
         attributes: ["id", "comment_text", "post_id", "user_id"],
         include: {
           model: User,
-          attributes: ["username", "firs_name", "last_name"],
+          attributes: ["username", "first_name", "last_name"],
         },
       },
       {
@@ -111,7 +111,7 @@ router.get("/post/:id", (req, res) => {
 
       res.render("single-post", {
         post,
-        loggedIn: req.session.loggedIn,
+        loggedIn: req.session.logged_In,
       });
     })
     .catch((err) => {
