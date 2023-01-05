@@ -1,5 +1,5 @@
 const User = require("./User");
-const Blog = require("./Post");
+const Post = require("./Post");
 const Comment = require("./Comment");
 const Follower = require("./Follower");
 
@@ -29,17 +29,19 @@ Comment.belongsTo(Post, {
   foreignKey: "post_id",
 });
 
- 
 User.hasMany(Follower, {
-  as: "following",
+  // as: "following",
   foreignKey: "user_id",
 });
-User.hasMany(Follower, {
-  as: "followers",
-  foreignKey: "following_id",
-});
 
-//or 
- 
- 
+Follower.belongsTo(User, {
+  foreignKey: "user_id",
+});
+// User.hasMany(Follower, {
+//   as: "followers",
+//   foreignKey: "following_id",
+// });
+
+//or
+
 module.exports = { User, Post, Comment, Follower };

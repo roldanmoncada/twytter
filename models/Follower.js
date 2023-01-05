@@ -18,7 +18,7 @@ Follower.init(
         key: "id",
       },
     },
-     
+
     user_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -26,8 +26,6 @@ Follower.init(
         key: "id",
       },
     },
-    
-     
   },
   {
     sequelize,
@@ -38,4 +36,4 @@ Follower.init(
   }
 );
 
-module.exports = Comment;
+module.exports = Follower;

@@ -1,23 +1,22 @@
 [
-    {
-      "name": "Ang",
-      "email": "Ang@mail.com",
-      "password": "password12345"
-    },
-    {
-      "name": "Roldan",
-      "email": "roldan@gmail.com",
-      "password": "password12345"
-    },
-    {
-      "name": "Francisco",
-      "email": "frnacisco@aol.com",
-      "password": "password12345"
-    }
-    {
-      "name": "Heidrun",
-      "email": "heidrun@aol.com",
-      "password": "password12345"
-    }
-  ]
-  
+  {
+    "name": "Ang",
+    "email": "Ang@mail.com",
+    "password": "password12345"
+  },
+  {
+    "name": "Roldan",
+    "email": "roldan@gmail.com",
+    "password": "password12345"
+  },
+  {
+    "name": "Francisco",
+    "email": "frnacisco@aol.com",
+    "password": "password12345"
+  },
+  {
+    "name": "Heidrun",
+    "email": "heidrun@aol.com",
+    "password": "password12345"
+  }
+]
