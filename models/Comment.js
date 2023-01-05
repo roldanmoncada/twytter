@@ -2,7 +2,7 @@ const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 
 class Comment extends Model {}
-
+//sequelized fields for Comment model
 Comment.init(
   {
     id: {
@@ -12,9 +12,7 @@ Comment.init(
       autoIncrement: true,
     },
 
-    // body: {
-    //   type: DataTypes.STRING,
-    // },
+     
 
     comment_text: {
       type: DataTypes.STRING,

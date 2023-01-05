@@ -138,6 +138,10 @@ router.get("/", withAuth, async (req, res) => {
           model: User,
           attributes: ["username", "first_name", "last_name"],
         },
+        {
+          model: Follower,
+          attributes: ["user_id", "following_id"],
+        },
       ],
     });
 
@@ -155,7 +159,7 @@ router.get("/", withAuth, async (req, res) => {
   }
 });
 
-// I think /user should be for the current user's profile page. Which is different from their dashboard view.
+// getting the current user's profile page. Which is different from their dashboard view.
 router.get("/user", withAuth, async (req, res) => {
   try {
     const userData = await User.findbyPK(req.session.user_id, {
@@ -182,6 +186,7 @@ router.get("/user/:id", withAuth, async (req, res) => {
   }
 });
 
+//getting the edit-post page
 router.get("/edit/:id", withAuth, (req, res) => {
   Post.findOne({
     where: {
@@ -221,6 +226,7 @@ router.get("/edit/:id", withAuth, (req, res) => {
     });
 });
 
+//endpoint for creating a post
 router.get("/create", withAuth, async (req, res) => {
   try {
     const newPostData = await Post.findAll({

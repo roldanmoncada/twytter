@@ -1,23 +1,23 @@
 [
     {
       
-      "body": "because icebergs are smarter",
+      "comment_text": "because icebergs are smarter",
       "user_id": 2,
       "post_id": 1
     },
     {
-      "body": "what if it's a retweet?",
+      "comment_text": "what if it's a retweet?",
       "user_id": 3,
       "post_id": 2
     },
     {
       
-      "body": "...and welcome to twytter!",
+      "comment_text": "...and welcome to twytter!",
       "user_id": 4,
       "post_id": 3
     },
     {
-      "body": "LOL",
+      "comment_text": "LOL",
       "user_id": 1,
       "post_id": 4
     }

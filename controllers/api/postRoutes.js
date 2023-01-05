@@ -54,7 +54,7 @@ const withAuth = require("../../utils/auth");
 //   }
 // });
 
-// Get all users
+// Get all posts
 
 router.get("/", (req, res) => {
   Post.findAll({
@@ -81,7 +81,7 @@ router.get("/", (req, res) => {
       res.status(500).json(err);
     });
 });
-
+//get single post
 router.get("/:id", (req, res) => {
   Post.findOne({
     where: {
@@ -115,7 +115,7 @@ router.get("/:id", (req, res) => {
       res.status(500).json(err);
     });
 });
-
+//route to create post
 router.post("/", withAuth, (req, res) => {
   Post.create({
     title: req.body.title,
@@ -129,6 +129,7 @@ router.post("/", withAuth, (req, res) => {
     });
 });
 
+//route to edit post
 router.put("/:id", withAuth, (req, res) => {
   Post.update(
     {
@@ -153,7 +154,7 @@ router.put("/:id", withAuth, (req, res) => {
       res.status(500).json(err);
     });
 });
-
+//route to delete post
 router.delete("/:id", withAuth, (req, res) => {
   Post.destroy({
     where: {

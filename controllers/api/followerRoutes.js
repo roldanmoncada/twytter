@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { Follower, User } = require("../../models");
 const withAuth = require("../../utils/auth");
-
+//route create a follower
 router.post("/:following", withAuth, async (req, res) => {
   const { following } = req.params;
   const userFolID = req.session.user_id;
@@ -12,6 +12,7 @@ router.post("/:following", withAuth, async (req, res) => {
     },
     // user_id: req.session.user_id,
   });
+  //if not following yet, create follower
   if (!results) {
     const following = Follower.create({
       user_id: userFolID,
@@ -20,7 +21,7 @@ router.post("/:following", withAuth, async (req, res) => {
     res.json(results);
   }
 });
-
+//route to unfollow
 router.delete("/:following", withAuth, async (req, res) => {
   try {
     const unfollow = await Follower.destroy({

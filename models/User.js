@@ -20,10 +20,7 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    // name: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    // },
+     
     first_name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -48,27 +45,6 @@ User.init(
       },
     },
 
-    // following_id: {
-    //   type: DataTypes.INTEGER,
-    //   references: {
-    //     model: "follower",
-    //     key: "following_id",
-    //   },
-    // },
-    // user_id: {
-    //   type: DataTypes.INTEGER,
-    //   references: {
-    //     model: "follower",
-    //     key: "user_id",
-    //   },
-    // },
-    // following_id: {
-    //   type: DataTypes.INTEGER,
-    //   references: {
-    //     model: "follower",
-    //     key: "user_id",
-    //   },
-    // },
   },
   //hooks to hash password before creating and before updating
   {
