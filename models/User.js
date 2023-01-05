@@ -8,64 +8,80 @@ class User extends Model {
   }
 }
 // data for fields of User table
-User.init({
-  id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-    validate: {
-      isEmail: true,
+User.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
     },
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      len: [8],
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
-  },
-   
-  following_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: "follower",
-      key: "following_id",
+    // name: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    // },
+    first_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
-  },
-  user_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: "follower",
-      key: "user_id",
+    last_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true,
+      },
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [4],
+      },
+    },
+
+    // following_id: {
+    //   type: DataTypes.INTEGER,
+    //   references: {
+    //     model: "follower",
+    //     key: "following_id",
+    //   },
+    // },
+    // user_id: {
+    //   type: DataTypes.INTEGER,
+    //   references: {
+    //     model: "follower",
+    //     key: "user_id",
+    //   },
+    // },
+    // following_id: {
+    //   type: DataTypes.INTEGER,
+    //   references: {
+    //     model: "follower",
+    //     key: "user_id",
+    //   },
+    // },
   },
-  // following_id: {
-  //   type: DataTypes.INTEGER,
-  //   references: {
-  //     model: "follower",
-  //     key: "user_id",
-  //   },
-  // },
-},
-//hooks to hash password before creating and before updating
-{
+  //hooks to hash password before creating and before updating
+  {
     hooks: {
       beforeCreate: async (newUserData) => {
         newUserData.password = await bcrypt.hash(newUserData.password, 10);
         return newUserData;
       },
       beforeUpdate: async (updatedUserData) => {
-        updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
+        updatedUserData.password = await bcrypt.hash(
+          updatedUserData.password,
+          10
+        );
         return updatedUserData;
       },
     },
@@ -73,7 +89,7 @@ User.init({
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'user',
+    modelName: "user",
   }
 );
 module.exports = User;

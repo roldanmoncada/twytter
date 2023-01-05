@@ -1,0 +1,57 @@
+<article style="height: 100vh; ">
+
+  <div class="text-end" style="text-align: right; border: 0;">
+    <a
+      href="/dashboard"
+      style="color: black; text-decoration: none; font-size: 24px;"
+    >
+      &larr; back to dashboard</a>
+  </div>
+  <h2 class="title mt-5" style="margin-left: 20px;">Edit post</h2><hr />
+  <form
+    class="edit-post-form"
+    style="margin-left: 20px; display:flex flex-direction:column"
+  >
+
+    <div style="margin-top: 10px;text-align: center;">
+
+      <label for="post-title">Post title:</label>
+
+      <input
+        style="height: 30px;  border-radius: 4px;"
+        class="form-control"
+        name="post-title"
+        type="text"
+        value="{{post.title}}"
+      />
+    </div>
+    <div>
+      <br />
+      <div style="text-align:center; ">
+        <label for="post-content">Post content</label>
+      </div>
+      <br />
+      <div style="text-align: center;">
+        <input
+          class="form-control textarea"
+          style="height:100px; text-align: center;"
+          name="post-content"
+          type="text"
+          value="{{post.body}}"
+        />
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 10px;">
+      <button type="submit" class="startButton">Save Post</button>
+      <button type="button" class="startButton2 delete-post-btn">Delete Post</button>
+
+    </div>
+  </form>
+</article>
+
+{{!-- {{> comments post.comments}} --}}
+
+<script src="/js/edit-post.js"></script>
+<script src="/js/delete-post.js"></script>
+{{! <script src="/js/comment.js"></script> }}
