@@ -16,11 +16,13 @@ async function followHandler(event) {
   });
 
   if (response.ok) {
-    alert("Follow successfully!");
+    alert("Followed successfully!");
     // document.location.replace("/dashboard/");
   } else {
     alert(response.statusText);
   }
 }
+
+
 
 document.querySelector(".follow-btn").addEventListener("click", followHandler);
