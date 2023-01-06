@@ -37,6 +37,8 @@ var followUserClick = async function (followingId, btn) {
 
   if (response.ok) {
     btn.innerHTML = "Unfollow";
+    btn.classList.remove("follow-user-btn");
+    btn.classList.add("aunfollow-user-btn");
     btn.removeAttribute("onclick");
     btn.setAttribute("onclick", "unFollowUserClick(this.id, this)");
   } else {
@@ -54,6 +56,8 @@ var unFollowUserClick = async function (followingId, btn) {
 
   if (response.ok) {
     btn.innerHTML = "Follow";
+    btn.classList.remove("unfollow-user-btn");
+    btn.classList.add("follow-user-btn");
     btn.removeAttribute("onclick");
     btn.setAttribute("onclick", "followUserClick(this.id, this)");
   } else {
