@@ -25,17 +25,19 @@
               {{last_name}}</span></a>
         </li>
         <li>
-          <a href="" class="table">
+          <a href="#"   class="table" onclick="openPopupFollowers()">
             <i class="fas fa-plane-departure"></i><span
               class="nav-item"
             >Followers</span></a>
         </li>
+    
         <li>
-          <a href="" class="table">
+          <a href="#" class="table" onclick="openFollowing()">
             <i class="fas fa-plane-arrival"></i><span
               class="nav-item"
             >Following</span></a>
         </li>
+        
         <li>
           <a href="#" class="logout1 " id="LogOut">
             <i class="fas fa-sign-out-alt"></i><span
@@ -78,7 +80,7 @@
   {{> post-info post}}
   <a>{{user.username}}</a>|<a href="">github</a>|<a
           href=""
-        >12/27/2022</a>|<a href="/post/{{post.id}}">{{post.comments.length}} comments</a>
+        >12/27/2022</a>|<a href="dashboard/post/{{post.id}}">{{post.comments.length}} comments</a>
   <div style="text-align: right; border: 0;">
     
  <button class="startButton1" >
@@ -97,5 +99,7 @@
 </div>
   </div>
 </div>
+
+
 
 <script src="/js/logout1.js"></script>

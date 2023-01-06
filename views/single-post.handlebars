@@ -1,22 +1,30 @@
 <!-- displaying articles -->
+<div style="height: 90vh;">
+<div class="text-end" style="text-align: right; border: 0;">
+   <a
+      href="/dashboard"
+      style="color: black; text-decoration: none; font-size: 24px;"
+    >
+      &larr; back to dashboard</a>
+</div>
 {{> post-info post}}
 
 <!-- displaying form and comments-->
 <!-- only display if logged in -->
 
-<form class="comment-form">
-  <div>
-    <textarea class="ml-5 " name="comment-body"></textarea>
-  </div>
+<form style="text-align: right; border:0;" class="comment-form">
+  
+    <input placeholder="Write a Comment" style="border-radius: 5px;  width: 300px; height:25px;" name="comment-body"></input>
+  
 
-  <div>
-     <button class="button btn btn-secondary mt-1 " type="submit"> Add comment</button>
-  </div>
+  
+     <button class="startButton3" type="submit"> Add comment</button>
+  
   
 </form>
-{{!-- nkljklj --}}
+
 
 {{> comments post.comments}}
 
-
 <script src="/js/comment.js"></script>
+</div>

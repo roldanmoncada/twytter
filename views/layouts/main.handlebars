@@ -34,6 +34,7 @@
     {{{body}}}
 
     <footer>
+
       <div class="inner_footer">
         <div class="logoContainer">
           <h4>© 2023 TW<span>Y</span>TTER, Inc.</h4>
@@ -53,6 +54,24 @@
             </p>
             <button onclick="closePopup()">ok</button>
           </div>
+
+          {{! Followers }}
+          <div class="popup" id="openFollowers">
+            <h2 style="margin-top: 20px;">Followers</h2>
+            <p style="margin-top: 20px;">Lorem ipsum, dolor sit amet consectetur
+              adipisicing elit. Labs, aut.
+            </p>
+            <button onclick="closePopupFollowers()">ok</button>
+          </div>
+
+          {{!Following }}
+          <div class="popup1" id="openFollowing">
+            <h2 style="margin-top: 20px;">Following</h2>
+            <p style="margin-top: 20px;">Lorem ipsum, dolor sit amet consectetur
+              adipisicing elit. Labs, aut.
+            </p>
+            <button onclick="closePopupFollowing()">ok</button>
+          </div>
           <a href="https://github.com/roldanmoncada/twytter"><li>Github</li></a>
           <a href="mailto:contact@twytter.com"><li>Contact</li></a>
         </ul>
@@ -62,6 +81,18 @@
       let popup = document.getElementById("popup"); function openPopup() {
       popup.classList.add("open-popup"); } function closePopup() {
       popup.classList.remove("open-popup"); }
+    </script>
+
+    <script>
+      let popUpFollowers = document.getElementById("openFollowers"); function
+      openPopupFollowers() { popUpFollowers.classList.add("open-popup"); }
+      function closePopupFollowers() {
+      popUpFollowers.classList.remove("open-popup"); }
+    </script>
+    <script>
+      let popUpFollowing = document.getElementById("openFollowing"); function
+      openFollowing() { popUpFollowing.classList.add("open-popup1"); } function
+      closePopupFollowing() { popUpFollowing.classList.remove("open-popup1"); }
     </script>
     <script
       src="https://kit.fontawesome.com/acd114ba49.js"

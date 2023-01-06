@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { User, Follower, Post, Comment } = require("../models");
+const withAuth = require("../utils/auth");
 
 // router.get("/", async (req, res) => {
 //   try {
@@ -81,7 +82,7 @@ router.get("/signup", (req, res) => {
   res.render("signup");
 });
 
-router.get("/post/:id", (req, res) => {
+router.get("/post/:id", withAuth, (req, res) => {
   Post.findOne({
     where: {
       id: req.params.id,
@@ -111,7 +112,7 @@ router.get("/post/:id", (req, res) => {
 
       res.render("single-post", {
         post,
-        loggedIn: req.session.logged_In,
+        loggedIn: req.session.logged_in,
       });
     })
     .catch((err) => {

@@ -719,6 +719,34 @@ User post */
   transform: scale(1.1);
 }
 
+.startButton3 {
+  margin-top: 10px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  background: #0066ff;
+  width: 100px;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  -webkit-transform-duration: 0.3s;
+  transition-duration: 0.3s;
+  transition-property: box-shadow, transform;
+}
+
+.startButton3:hover,
+.startButton3:focus,
+.startButton3:active {
+  box-shadow: 0 0 20px rgb(0, 0, 0, 0.5);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
 .section {
   height: 90vh;
 }
@@ -795,7 +823,7 @@ User post */
 footer {
   background-color: #000;
   color: #fff;
-  height: 60px;
+  height: 70px;
   width: 100%;
   display: block;
 }
@@ -832,10 +860,10 @@ footer {
   background: white;
 }
 .popup button {
-  width: 100%;
+  width: 150px;
   margin-top: 50px;
   padding: 10px 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: #0066ff;
   color: #fff;
   border: 0;
   outline: none;
@@ -851,4 +879,63 @@ footer {
   top: 50%;
 }
 
+.popup1 {
+  width: 800px;
+  height: auto;
+  background-attachment: #0066ff;
+  border-radius: 6px;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  text-align: center;
+  padding: 0 30px 30px;
+  color: black;
+  visibility: hidden;
+  transition: transform 0.4s, top 0.4s;
+  z-index: 1004;
+  background: white;
+}
+.popup1 button {
+  width: 150px;
+  margin-top: 50px;
+  padding: 10px 0;
+  background: #0066ff;
+  color: #fff;
+  border: 0;
+  outline: none;
+  font-size: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 1002;
+}
+.open-popup1 {
+  visibility: visible;
+
+  transform: translate(-50%, -45%) scale(0.9);
+  top: 50%;
+}
 /*-------- footer style---------- */
+
+.box1 {
+  width: 60%;
+  padding: 10px;
+  margin: 20px;
+  border-radius: 10px;
+  background: rgb(0, 0, 0, 0.5);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+}
+
+.box1 p {
+  margin-top: 10px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  background: white;
+  padding: 10px;
+}
+
+.comments {
+  margin-left: 0%;
+}
