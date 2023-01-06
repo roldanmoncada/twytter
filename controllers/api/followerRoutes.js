@@ -13,23 +13,34 @@ router.post("/:following", withAuth, async (req, res) => {
     // user_id: req.session.user_id,
   });
   if (!results) {
-    const following = Follower.create({
-      user_id: userFolID,
-      following_id: following,
-    })
-    res.json(results);
+    try {
+      const followingResult = await Follower.create({
+        user_id: userFolID,
+        following_id: following,
+      });
+      res.status(200).json(followingResult);
+    } catch (err) {
+      console.error("failed to save following: ", err);
+      res.status(500).json(err);
+    }
+  } else {
+    res.status(200).json(results);
   }
 });
 
 router.delete("/:following", withAuth, async (req, res) => {
   try {
-    const unfollow = await Follower.destroy({
+    const { following } = req.params;
+    const userFolID = req.session.user_id;
+    const followDelete = await Follower.destroy({
       where: {
         user_id: userFolID,
         following_id: following,
       },
     });
+    res.status(200).json(followDelete);
   } catch (err) {
+    console.error("failed to save unfollowing: ", err);
     res.status(500).json(err);
   }
 });
