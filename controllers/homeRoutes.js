@@ -43,7 +43,7 @@ router.get("/", async (req, res) => {
       ],
     });
 
-    const posts = dbPostData.map((post) => [post.get({ plain: true })]);
+    const posts = dbPostData.map((post) => post.get({ plain: true }));
     res.render("homepage", {
       posts,
       logged_in: req.session.logged_in,
@@ -80,45 +80,6 @@ router.get("/signup", (req, res) => {
     return;
   }
   res.render("signup");
-});
-
-router.get("/post/:id", withAuth, (req, res) => {
-  Post.findOne({
-    where: {
-      id: req.params.id,
-    },
-    attributes: ["id", "title", "post_content"],
-    include: [
-      {
-        model: Comment,
-        attributes: ["id", "comment_text", "post_id", "user_id"],
-        include: {
-          model: User,
-          attributes: ["username", "first_name", "last_name"],
-        },
-      },
-      {
-        model: User,
-        attributes: ["username", "first_name", "last_name"],
-      },
-    ],
-  })
-    .then((data) => {
-      if (!data) {
-        res.status(404).json({ message: "No post found with this id" });
-        return;
-      }
-      const post = data.get({ plain: true });
-
-      res.render("single-post", {
-        post,
-        loggedIn: req.session.logged_in,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
 });
 
 module.exports = router;
