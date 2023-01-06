@@ -1,14 +1,12 @@
+<br />
 <div class="comments">
   {{#each this}}
-    <div class="comment">
-      <div class="bg-danger">
-        {{user.username}}
-        on
+    <div class="box1">
 
-      </div>
-      <div class="bg-info">
-        {{comment_text}}
-      </div>
+      <h4><i class="fas fa-house"></i> {{user.username}}</h4>
+
+      <p>{{comment_text}}</p>
+
     </div>
   {{/each}}
 </div>
