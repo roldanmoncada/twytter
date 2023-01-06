@@ -250,7 +250,6 @@ router.get("/create", withAuth, async (req, res) => {
     res.status(500).json(error);
   }
 });
-
 router.get("/post/:id", withAuth, (req, res) => {
   Post.findOne({
     where: {
@@ -281,7 +280,7 @@ router.get("/post/:id", withAuth, (req, res) => {
 
       res.render("single-post", {
         post,
-        logged_in: true,
+        logged_in: req.session.logged_in,
       });
     })
     .catch((err) => {
@@ -289,5 +288,4 @@ router.get("/post/:id", withAuth, (req, res) => {
       res.status(500).json(err);
     });
 });
-
 module.exports = router;
