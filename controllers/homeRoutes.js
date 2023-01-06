@@ -56,7 +56,7 @@ router.get("/", async (req, res) => {
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login'
-}))
+}));
 
 // router.get("/login", (req, res) => {
 //   // Removed the chunk about redirecting to the dashboard if already logged in since it makes more sense to check in the above block.
@@ -72,47 +72,15 @@ router.post('/login', passport.authenticate('local', {
 
 //
 
-// router.get("/signup", (req, res) => {
-//   if (req.session.logged_in) {
-//     res.redirect("/");
-//     return;
-//   }
-//   res.render("signup");
-// });
-
-// router.get("/signup", (req, res) => {
-//   if (req.session.logged_in) {
-//     res.redirect("/");
-//     return;
-//   }
-//   res.render("signup");
-// });
-
-router.get('/signup', function(req, res, next) {
-  res.render('signup');
+router.get("/signup", (req, res) => {
+  if (req.session.logged_in) {
+    res.redirect("/");
+    return;
+  }
+  res.render("signup");
 });
 
-router.post('/signup', function(req, res, next) {
-  const salt = crypto.randomBytes(16);
-  crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', function(err, hashedPassword) {
-    if (err) { return next(err); }
-    db.run('INSERT INTO users (username, hashed_password, salt) VALUES (?, ?, ?)', [
-      req.body.username,
-      hashedPassword,
-      salt
-    ], function(err) {
-      if (err) { return next(err); }
-      const user = {
-        id: this.lastID,
-        username: req.body.username
-      };
-      req.login(user, function(err) {
-        if (err) { return next(err); }
-        res.redirect('/');
-      });
-    });
-  });
-});
+
 
 router.get("/post/:id", (req, res) => {
   Post.findOne({
