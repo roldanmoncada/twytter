@@ -253,33 +253,13 @@ router.get("/create", withAuth, async (req, res) => {
     res.status(500).json(error);
   }
 });
-router.get("/post/:id", withAuth, (req, res) => {
-  Post.findOne({
-    where: {
-      id: req.params.id,
-    },
-    attributes: ["id", "title", "post_content"],
-    include: [
-      {
-        model: Comment,
-        attributes: ["id", "comment_text", "post_id", "user_id"],
-        include: {
-          model: User,
-          attributes: ["username", "first_name", "last_name"],
-        },
-      },
-      {
-        model: User,
-        attributes: ["username", "first_name", "last_name"],
-      },
-    ],
-  })
-    .then((data) => {
-      if (!data) {
-        res.status(404).json({ message: "No post found with this id" });
-        return;
-      }
-      const post = data.get({ plain: true });
+
+router.post('/logout', function(req, res, next) {
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+    });
+});
 
       res.render("single-post", {
         post,
