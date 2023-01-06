@@ -38,7 +38,7 @@
         </li>
         <li>
           <a href="/api/users/list-all" class="table">
-            <i class="fas fa-user"></i><span class="nav-item">Users Following</span></a>
+            <i class="fas fa-user"></i><span class="nav-item">Users</span></a>
         </li>
         <li>
           <a href="#" class="logout1" id="LogOut">
@@ -56,36 +56,41 @@
 
       {{#if dbUserData.length}}
 
-        <table>
-          <tr>
+        <table class="styled-table">
+          <thead>
+            <tr>
             <th>Username</th>
             <th>FirstName</th>
             <th>LastName</th>
             <th>Follow / Un-Follow</th>
           </tr>
-          {{#each dbUserData as |user|}}
+          </thead>
+          <tbody>
+            {{#each dbUserData as |user|}}
             <tr>
-              <td>{{user.username}}</td>
+              <td>
+                <a href="user's main page route">
+                {{user.username}}
+                </a>
+                </td>
               <td>{{user.first_name}}</td>
               <td>{{user.last_name}}</td>
               {{#ifEquals user.id ../currentUserId }}
                 <td>Myself</td>
               {{else}}
                 {{#if user.followed}}
-                <td><button id="{{user.id}}" type="button" class="unfollow-user-btn" onclick="unFollowUserClick(this.id, this)" >Unfollow</button></td>
+                <td><button id="{{user.id}}" type="button" class="unfollow-user-btn" onclick="unFollowUserClick(this.id, this)" style="border-radius: 15%; padding:2%;">Unfollow</button></td>
                 {{else}}
-                <td><button id="{{user.id}}" type="button" class="follow-user-btn" onclick="followUserClick(this.id, this)">Follow</button></td>
+                <td><button id="{{user.id}}" type="button" class="follow-user-btn" onclick="followUserClick(this.id, this)" style="border-radius: 15%; padding:2%;">Follow</button></td>
                 {{/if}}
-                
               {{/ifEquals}}
-
             </tr>
           {{/each}}
+          </tbody>
         </table>
-
       {{else}}
-
         <h3>No users.</h3>
+
       {{/if}}
     </div>
   </div>
