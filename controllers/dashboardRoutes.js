@@ -138,10 +138,6 @@ router.get("/", withAuth, async (req, res) => {
           model: User,
           attributes: ["username", "first_name", "last_name"],
         },
-        {
-          model: Follower,
-          attributes: ["user_id", "following_id"],
-        },
       ],
     });
 
