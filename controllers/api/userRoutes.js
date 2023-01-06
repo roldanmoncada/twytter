@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User, Post, Comment } = require("../../models");
+const { User, Post, Comment, Follower } = require("../../models");
 const withAuth = require("../../utils/auth");
 
 // router.post('/', async (req, res) => {
@@ -66,6 +66,47 @@ router.get("/", (req, res) => {
     attributes: { exclude: ["password"] },
   })
     .then((dbUserData) => res.json(dbUserData))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json;
+    });
+});
+
+router.get("/list-all", withAuth, async (req, res) => {
+  const followerData = await Follower.findAll({ raw: true });
+  // console.log(followerData);
+  var followIdStrArray = [];
+  followerData.forEach((oneFollower) => {
+    followIdStrArray.push(
+      oneFollower.following_id + "<-" + oneFollower.user_id
+    );
+  });
+  // console.log(followIdStrArray);
+  User.findAll({
+    attributes: { exclude: ["password"] },
+    raw: true,
+  })
+    .then((dbUserData) => {
+      dbUserData.forEach(function (oneUser) {
+        const followPattern = oneUser.id + "<-" + req.session.user_id;
+        console.log(followPattern);
+        if (followIdStrArray.indexOf(followPattern) != -1) {
+          oneUser.followed = true;
+        } else {
+          oneUser.followed = false;
+        }
+      });
+      // console.log(dbUserData);
+      res.render("all_users", {
+        dbUserData,
+        logged_in: true,
+
+        currentUserId: req.session.user_id,
+        username: req.session.username,
+        first_name: req.session.first_name,
+        last_name: req.session.last_name,
+      });
+    })
     .catch((err) => {
       console.log(err);
       res.status(500).json;
