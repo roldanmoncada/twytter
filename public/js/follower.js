@@ -27,7 +27,7 @@
 //     alert("unfollowBtns clicked...");
 //   });
 // }
-var followUserClick = async function (followingId, btn) {
+const followUserClick = async function (followingId, btn) {
   const response = await fetch(`/api/followers/${followingId}`, {
     method: "POST",
     headers: {
@@ -46,7 +46,7 @@ var followUserClick = async function (followingId, btn) {
   }
 };
 
-var unFollowUserClick = async function (followingId, btn) {
+const unFollowUserClick = async function (followingId, btn) {
   const response = await fetch(`/api/followers/${followingId}`, {
     method: "DELETE",
     headers: {
