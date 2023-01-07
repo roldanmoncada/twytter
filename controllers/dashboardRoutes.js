@@ -2,8 +2,7 @@ const router = require("express").Router();
 const { User, Follower, Post, Comment } = require("../models");
 const withAuth = require("../utils/auth");
 
- 
-//displaying all posts of logged-in user, including comments
+//displaying all posts  of logged-in user, including comments
 router.get("/", withAuth, async (req, res) => {
   try {
     const dbPostData = await Post.findAll({
@@ -24,84 +23,61 @@ router.get("/", withAuth, async (req, res) => {
           model: User,
           attributes: ["username", "first_name", "last_name"],
         },
- 
       ],
     });
 
     const posts = dbPostData.map((post) => post.get({ plain: true }));
+
+    //getting from db all followers
+    const dbFollowerData = await Follower.findAll({
+      //raw: true,
+      where: {
+        following_id: req.session.user_id,
+      },
+      attributes: ["id", "following_id", "user_id"],
+      include: [
+        {
+          model: User,
+          attributes: ["username", "first_name", "last_name"],
+        },
+      ],
+    });
+
+    console.log("follower data= ", dbFollowerData);
+    //making simple array of user IDs
+    const followers = dbFollowerData.map((e) => e.user_id);
+
+    //getting from db all that are being followed
+    const dbFollowingData = await Follower.findAll({
+      //raw: true,
+      where: {
+        user_id: req.session.user_id,
+      },
+      attributes: ["id", "following_id", "user_id"],
+      include: [
+        {
+          model: User,
+          attributes: ["username", "first_name", "last_name"],
+        },
+      ],
+    });
+
+    console.log("following data= ", dbFollowingData);
+    //making simple array of user IDs
+    const following = dbFollowingData.map((e) => e.following_id);
+    //rendering all info in dashboard
     res.render("dashboard", {
       posts,
       logged_in: true,
-
-      username: req.session.username,
+      username: req.session.username, //gibberish to see if render works
       first_name: req.session.first_name,
       last_name: req.session.last_name,
+      followers: followers,
+      following: following,
     });
   } catch (error) {
     res.status(500).json(error);
   }
-});
-
-
-router.get('/followers', async (req, res) => {
-  if (!req.session.loggedIn) {
-    return res.redirect('/login');
-  }
-try {
-const dbFollowerData = await Follower.findAll({
-  raw: true,
-  where: {
-    following_id: req.session.user.id,
-  },
-});
-
-const follower = dbFollowerData.map((e) => e.user_id);
-// const usersData = await User.findAll({
-//   raw: true,
-//   attributes: {
-//     exclude: ['password', 'email'],
-//   },
-// });
-res.render('followers', {
-  title: 'Followers',
-  signedIn: req.session.logged_in,
-  loggedOut: !req.session.logged_in,
-  user: req.session.user.username,
-});
-} catch (error) {
-res.status(500).json({ msg: error });
-}
-});
-
-//rendering followers
-router.get('/following', async (req, res) => {
-  if (!req.session.loggedIn) {
-    return res.redirect('/login');
-  }
-try {
-const dbFollowerData = await Follower.findAll({
-  raw: true,
-  where: {
-    user_id: req.session.user.id,
-  },
-});
-
-const following = dbFollowerData.map((e) => e.following_id);
-const usersData = await User.findAll({
-  raw: true,
-  attributes: {
-    exclude: ['password', 'email'],
-  },
-});
-res.render('following', {
-  title: 'Following',
-  signedIn: req.session.logged_in,
-  loggedOut: !req.session.logged_in,
-  user: req.session.user.username,
-});
-} catch (error) {
-res.status(500).json({ msg: error });
-}
 });
 
 // getting the current user's profile page. Which is different from their dashboard view (frontend code missing? )
@@ -131,7 +107,7 @@ router.get("/user/:id", withAuth, async (req, res) => {
   }
 });
 
-//getting the edit-post endpoint 
+//getting the edit-post endpoint
 router.get("/edit/:id", withAuth, (req, res) => {
   Post.findOne({
     where: {
