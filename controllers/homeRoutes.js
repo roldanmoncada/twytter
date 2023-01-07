@@ -41,6 +41,7 @@ router.get("/", async (req, res) => {
           attributes: ["username", "first_name", "last_name"],
         },
       ],
+    //  order: [['updatedAt', 'DESC']],
     });
 
     const posts = dbPostData.map((post) => post.get({ plain: true }));

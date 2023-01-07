@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { Follower, User } = require("../../models");
 const withAuth = require("../../utils/auth");
-//route create a follower
+//route to create following someone
 router.post("/:following", withAuth, async (req, res) => {
   const { following } = req.params;
   const userFolID = req.session.passport.user.user_id;

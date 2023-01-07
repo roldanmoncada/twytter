@@ -11,6 +11,7 @@ Follower.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    //other users being followed by User
     following_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -18,7 +19,7 @@ Follower.init(
         key: "id",
       },
     },
-
+//other users that are followers, meaning following User
     user_id: {
       type: DataTypes.INTEGER,
       references: {

@@ -105,6 +105,14 @@
   </div>
 </div>
 
-
+<div class="popup" id="openFollowers">
+  <h2 style="margin-top: 20px;">Followers</h2>
+  <p style="margin-top: 20px;">
+    {{#each followers as |follower|}}
+      <div>{{follower}}</div>
+    {{/each}}
+  </p>
+  <button onclick="closePopupFollowers()">ok</button>
+</div>
 
 <script src="/js/logout1.js"></script>
