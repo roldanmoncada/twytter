@@ -32,9 +32,9 @@ router.get("/", withAuth, async (req, res) => {
     const dbFollowerData = await Follower.findAll({
       //raw: true,
       where: {
-        following_id: req.session.user_id,
+        following_id: req.session.passport.user.user_id,
       },
-      attributes: ["id", "following_id", "user_id"],
+      attributes: [ "id", "following_id", "user_id"],
       include: [
         {
           model: User,
@@ -51,7 +51,7 @@ router.get("/", withAuth, async (req, res) => {
     const dbFollowingData = await Follower.findAll({
       //raw: true,
       where: {
-        user_id: req.session.user_id,
+        user_id: req.session.passport.user.user_id,
       },
       attributes: ["id", "following_id", "user_id"],
       include: [
@@ -69,11 +69,11 @@ router.get("/", withAuth, async (req, res) => {
     res.render("dashboard", {
       posts,
       logged_in: true,
-      username: req.session.username, 
-      first_name: req.session.first_name,
-      last_name: req.session.last_name,
-      followers: followers,
-      following: following,
+      username: req.session.passport.user.username, 
+      first_name: req.session.passport.user.first_name,
+      last_name: req.session.passport.user.last_name,
+      // followers: followers,
+      // following: following,
     });
   } catch (error) {
     res.status(500).json(error);
