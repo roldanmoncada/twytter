@@ -4,6 +4,8 @@ const routes = require("./controllers");
 const exphbs = require("express-handlebars");
 const helpers = require("./utils/helper");
 const path = require("path");
+// new lib that has not been taught by teacher
+var passport = require("passport");
 
 const sequelize = require("./config/connection");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
@@ -22,6 +24,9 @@ const sess = {
 };
 
 app.use(session(sess));
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login session
+
 const hbs = exphbs.create({ helpers });
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
@@ -35,3 +40,5 @@ app.use(routes);
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log("Now listening"));
 });
+
+// nothing

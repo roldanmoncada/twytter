@@ -4,7 +4,7 @@ const withAuth = require("../../utils/auth");
 //route to create following someone
 router.post("/:following", withAuth, async (req, res) => {
   const { following } = req.params;
-  const userFolID = req.session.user_id;
+  const userFolID = req.session.passport.user.user_id;
   const results = await Follower.findOne({
     where: {
       user_id: userFolID,
@@ -32,7 +32,7 @@ router.post("/:following", withAuth, async (req, res) => {
 router.delete("/:following", withAuth, async (req, res) => {
   try {
     const { following } = req.params;
-    const userFolID = req.session.user_id;
+    const userFolID = req.session.passport.user.user_id;
     const followDelete = await Follower.destroy({
       where: {
         user_id: userFolID,
