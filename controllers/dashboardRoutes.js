@@ -122,7 +122,7 @@ router.get("/", withAuth, async (req, res) => {
   try {
     const dbPostData = await Post.findAll({
       where: {
-        user_id: req.session.user_id,
+        user_id: req.session.passport.user.user_id,
       },
       attributes: ["id", "title", "post_content"],
       include: [
@@ -138,7 +138,6 @@ router.get("/", withAuth, async (req, res) => {
           model: User,
           attributes: ["username", "first_name", "last_name"],
         },
- 
       ],
     });
 
@@ -147,9 +146,9 @@ router.get("/", withAuth, async (req, res) => {
       posts,
       logged_in: true,
 
-      username: req.session.username,
-      first_name: req.session.first_name,
-      last_name: req.session.last_name,
+      username: req.session.passport.user.username,
+      first_name: req.session.passport.user.first_name,
+      last_name: req.session.passport.user.last_name,
     });
   } catch (error) {
     res.status(500).json(error);
@@ -159,7 +158,7 @@ router.get("/", withAuth, async (req, res) => {
 // getting the current user's profile page. Which is different from their dashboard view.
 router.get("/user", withAuth, async (req, res) => {
   try {
-    const userData = await User.findbyPK(req.session.user_id, {
+    const userData = await User.findbyPK(req.session.passport.user.user_id, {
       attributes: { exclude: ["password"] },
       include: [{ model: User }],
     });
@@ -228,7 +227,7 @@ router.get("/create", withAuth, async (req, res) => {
   try {
     const newPostData = await Post.findAll({
       where: {
-        user_id: req.session.user_id,
+        user_id: req.session.passport.user.user_id,
       },
       attributes: ["id", "title", "post_content"],
       include: [
@@ -283,7 +282,7 @@ router.get("/post/:id", withAuth, (req, res) => {
 
       res.render("single-post", {
         post,
-        logged_in: req.session.logged_in,
+        logged_in: req.session.passport.user.logged_in,
       });
     })
     .catch((err) => {

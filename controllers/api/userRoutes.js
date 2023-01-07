@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const { User, Post, Comment, Follower } = require("../../models");
 const withAuth = require("../../utils/auth");
-
+var passport = require("passport");
+require("../../utils/passport")(passport, User);
 // router.post('/', async (req, res) => {
 //   try {
 //     const userData = await User.create(req.body);
@@ -88,7 +89,8 @@ router.get("/list-all", withAuth, async (req, res) => {
   })
     .then((dbUserData) => {
       dbUserData.forEach(function (oneUser) {
-        const followPattern = oneUser.id + "<-" + req.session.user_id;
+        const followPattern =
+          oneUser.id + "<-" + req.session.passport.user.user_id;
         console.log(followPattern);
         if (followIdStrArray.indexOf(followPattern) != -1) {
           oneUser.followed = true;
@@ -101,10 +103,10 @@ router.get("/list-all", withAuth, async (req, res) => {
         dbUserData,
         logged_in: true,
 
-        currentUserId: req.session.user_id,
-        username: req.session.username,
-        first_name: req.session.first_name,
-        last_name: req.session.last_name,
+        currentUserId: req.session.passport.user.user_id,
+        username: req.session.passport.user.username,
+        first_name: req.session.passport.user.first_name,
+        last_name: req.session.passport.user.last_name,
       });
     })
     .catch((err) => {
@@ -151,67 +153,99 @@ router.get("/:id", (req, res) => {
 
 // create a new user
 
-router.post("/", (req, res) => {
-  User.create({
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password,
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-  }).then((dbUserData) => {
-    req.session.save(() => {
-      req.session.user_id = dbUserData.id;
-      req.session.username = dbUserData.username;
-      req.session.first_name = dbUserData.first_name;
-      req.session.last_name = dbUserData.last_name;
-      req.session.logged_in = true;
+// router.post("/", (req, res) => {
+//   User.create({
+//     username: req.body.username,
+//     email: req.body.email,
+//     password: req.body.password,
+//     first_name: req.body.first_name,
+//     last_name: req.body.last_name,
+//   }).then((dbUserData) => {
+//     req.session.save(() => {
+//       req.session.user_id = dbUserData.id;
+//       req.session.username = dbUserData.username;
+//       req.session.first_name = dbUserData.first_name;
+//       req.session.last_name = dbUserData.last_name;
+//       req.session.logged_in = true;
 
-      res.json(dbUserData);
+//       res.json(dbUserData);
+//     });
+//   });
+// });
+
+router.post(
+  "/",
+  passport.authenticate("signup", {
+    failureRedirect: "/signup",
+    failureMessage: true,
+  }),
+  function (req, res) {
+    console.log("session: ", req.session);
+    res.json({
+      user: req.session.passport.user,
     });
-  });
-});
+  }
+);
 
 //login
 
-router.post("/login", (req, res) => {
-  User.findOne({
-    where: {
-      email: req.body.email,
-    },
-  }).then((dbUserData) => {
-    if (!dbUserData) {
-      res.status(400).json({ message: "No user with that email address" });
-      return;
-    }
-    const validPassword = dbUserData.checkPassword(req.body.password);
+// router.post("/login", (req, res) => {
+//   User.findOne({
+//     where: {
+//       email: req.body.email,
+//     },
+//   }).then((dbUserData) => {
+//     if (!dbUserData) {
+//       res.status(400).json({ message: "No user with that email address" });
+//       return;
+//     }
+//     const validPassword = dbUserData.checkPassword(req.body.password);
 
-    if (!validPassword) {
-      res.status(400).json({ message: "Incorrect password!" });
-      return;
-    }
+//     if (!validPassword) {
+//       res.status(400).json({ message: "Incorrect password!" });
+//       return;
+//     }
 
-    req.session.save(() => {
-      req.session.user_id = dbUserData.id;
-      req.session.username = dbUserData.username;
-      req.session.first_name = dbUserData.first_name;
-      req.session.last_name = dbUserData.last_name;
-      req.session.logged_in = true;
+//     req.session.save(() => {
+//       req.session.user_id = dbUserData.id;
+//       req.session.username = dbUserData.username;
+//       req.session.first_name = dbUserData.first_name;
+//       req.session.last_name = dbUserData.last_name;
+//       req.session.logged_in = true;
 
-      res.json({ user: dbUserData, message: "You are now logged in!" });
+//       res.json({ user: dbUserData, message: "You are now logged in!" });
+//     });
+//   });
+// });
+
+router.post(
+  "/login",
+  passport.authenticate("login", {
+    failureRedirect: "/login",
+    failureMessage: true,
+  }),
+  function (req, res) {
+    console.log("session: ", req.session);
+    res.json({
+      user: req.session.passport.user,
+      message: "You are now logged in!",
     });
-  });
-});
+  }
+);
 
 //logout
 
 router.post("/logout", (req, res) => {
-  if (req.session.logged_in) {
-    req.session.destroy(() => {
-      res.status(204).end();
-    });
-  } else {
-    res.status(404).end();
-  }
+  req.session.destroy(function (err) {
+    res.redirect("/");
+  });
+  // if (req.session.logged_in) {
+  //   req.session.destroy(() => {
+  //     res.status(204).end();
+  //   });
+  // } else {
+  //   res.status(404).end();
+  // }
 });
 
 // update api user

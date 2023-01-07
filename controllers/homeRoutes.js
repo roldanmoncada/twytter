@@ -46,7 +46,7 @@ router.get("/", async (req, res) => {
     const posts = dbPostData.map((post) => post.get({ plain: true }));
     res.render("homepage", {
       posts,
-      logged_in: req.session.logged_in,
+      logged_in: req.isAuthenticated(),
     });
   } catch (error) {
     console.log(error);
@@ -57,17 +57,17 @@ router.get("/", async (req, res) => {
 router.get("/login", (req, res) => {
   // Removed the chunk about redirecting to the dashboard if already logged in since it makes more sense to check in the above block.
 
-  // since the login check is handled above, this would be all we need to do with the login route to my knowledge.
-  if (req.session.logged_in) {
+  // // since the login check is handled above, this would be all we need to do with the login route to my knowledge.
+  if (req.isAuthenticated()) {
     res.redirect("/");
     return;
+  } else {
+    res.render("login");
   }
-
-  res.render("login");
 });
 
 router.get("/signup", (req, res) => {
-  if (req.session.logged_in) {
+  if (req.isAuthenticated()) {
     res.redirect("/");
     return;
   }
