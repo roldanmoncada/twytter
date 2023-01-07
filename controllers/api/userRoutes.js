@@ -74,14 +74,14 @@ router.get("/", (req, res) => {
 
 router.get("/list-all", withAuth, async (req, res) => {
   const followerData = await Follower.findAll({ raw: true });
-  // console.log(followerData);
+  // console.log(followerData); 
   var followIdStrArray = [];
   followerData.forEach((oneFollower) => {
     followIdStrArray.push(
       oneFollower.following_id + "<-" + oneFollower.user_id
     );
   });
-  // console.log(followIdStrArray);
+  // console.log(followIdStrArray); This should be moved to dashBoardRoutes
   User.findAll({
     attributes: { exclude: ["password"] },
     raw: true,
@@ -152,6 +152,7 @@ router.get("/:id", (req, res) => {
 // create a new user
 
 router.post("/", (req, res) => {
+  //console.log("sign up received req.body = ", req.body); //works
   User.create({
     username: req.body.username,
     email: req.body.email,
@@ -159,13 +160,17 @@ router.post("/", (req, res) => {
     first_name: req.body.first_name,
     last_name: req.body.last_name,
   }).then((dbUserData) => {
+   // console.log('dbUserData0 = ', dbUserData); //works
+   
     req.session.save(() => {
+      //console.log('session=', req.session);//works
       req.session.user_id = dbUserData.id;
       req.session.username = dbUserData.username;
       req.session.first_name = dbUserData.first_name;
       req.session.last_name = dbUserData.last_name;
       req.session.logged_in = true;
-
+//console.log('dbUserData = ', dbUserData); //works
+//console.log('req.session.username = ', req.session.username); //works
       res.json(dbUserData);
     });
   });
@@ -179,6 +184,7 @@ router.post("/login", (req, res) => {
       email: req.body.email,
     },
   }).then((dbUserData) => {
+  console.log(dbUserData);
     if (!dbUserData) {
       res.status(400).json({ message: "No user with that email address" });
       return;

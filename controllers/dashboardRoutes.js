@@ -138,7 +138,6 @@ router.get("/", withAuth, async (req, res) => {
           model: User,
           attributes: ["username", "first_name", "last_name"],
         },
- 
       ],
     });
 
@@ -254,21 +253,23 @@ router.get("/create", withAuth, async (req, res) => {
   }
 });
 
-router.post('/logout', function(req, res, next) {
-    req.logout(function(err) {
-        if (err) { return next(err); }
-        res.redirect('/');
-    });
+router.post("/logout", function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
 });
 
-      res.render("single-post", {
-        post,
-        logged_in: req.session.logged_in,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
+// res.render("single-post", {
+//     post,
+//     logged_in: req.session.logged_in,
+//   })
+
+  // .catch((err) => {
+  //   console.log(err);
+  //   res.status(500).json(err);
+  // });
+
 module.exports = router;

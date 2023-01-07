@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { User, Follower, Post, Comment } = require("../models");
+const passport = require('passport');
 const withAuth = require("../utils/auth");
 
 // router.get("/", async (req, res) => {
@@ -55,6 +56,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post('/login', passport.authenticate('local', {
+  //console.log('login');
   successRedirect: '/',
   failureRedirect: '/login'
 }));
@@ -74,11 +76,14 @@ router.post('/login', passport.authenticate('local', {
 //
 
 router.get("/signup", (req, res) => {
+  //console.log('signupp'); //works
   if (req.session.logged_in) {
     res.redirect("/");
     return;
   }
+  //console.log('signup'); //works
   res.render("signup");
+  //console.log('signupp1'); works
 });
 
 
