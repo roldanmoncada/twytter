@@ -1,32 +1,38 @@
-module.exports = function (passport, user) {
-  var User = user;
-  var LocalStrategy = require("passport-local").Strategy;
-  const process = require("process");
-  //serialize
-  passport.serializeUser(function (user, done) {
-    done(null, user.id);
-    process.nextTick(function () {
-      return done(null, {
-        user_id: user.id,
-        username: user.username,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        logged_in: true,
-      });
-    });
-  });
+const LocalStrategy = require("passport-local").Strategy
+const bcrypt = require('bcrypt');
+const process = require("process");
 
-  // deserialize user
-  passport.deserializeUser(function (user, done) {
-    console.log("deserializing user: ", user);
-    User.findByPk(user.user_id).then(function (user) {
-      if (user) {
-        done(null, user.get());
-      } else {
-        done(user.errors, null);
-      }
-    });
-  });
+function initialize(passport) 
+
+
+// Ang's work below
+// function initialize(passport, user) {
+//   const user = User;
+//   //serialize
+//   passport.serializeUser(function (user, done) {
+//     done(null, user.id);
+//     process.nextTick(function () {
+//       return done(null, {
+//         user_id: user.id,
+//         username: user.username,
+//         first_name: user.first_name,
+//         last_name: user.last_name,
+//         logged_in: true,
+//       });
+//     });
+//   });
+
+  // // deserialize user
+  // passport.deserializeUser(function (user, done) {
+  //   console.log("deserializing user: ", user);
+  //   User.findByPk(user.user_id).then(function (user) {
+  //     if (user) {
+  //       done(null, user.get());
+  //     } else {
+  //       done(null, user.errors);
+  //     }
+  //   });
+  // });
 
   //Signup passport
   passport.use(
@@ -115,3 +121,5 @@ module.exports = function (passport, user) {
     )
   );
 };
+
+module.exports = initialize;
