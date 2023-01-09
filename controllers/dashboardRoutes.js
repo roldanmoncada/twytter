@@ -34,13 +34,13 @@ router.get("/", withAuth, async (req, res) => {
       where: {
         following_id: req.session.passport.user.user_id,
       },
-      attributes: [ "id", "following_id", "user_id"],
-      include: [
-        {
-          model: User,
-          attributes: ["username", "first_name", "last_name"],
-        },
-      ],
+      attributes: [ "following_id", "user_id",],
+    //   include: [
+    //     {
+    //       model: User,
+    //       attributes: ["username", "first_name", "last_name"],
+    //     },
+    //   ],
     });
 
     console.log("follower data= ", dbFollowerData);
@@ -54,12 +54,12 @@ router.get("/", withAuth, async (req, res) => {
         user_id: req.session.passport.user.user_id,
       },
       attributes: ["id", "following_id", "user_id"],
-      include: [
-        {
-          model: User,
-          attributes: ["username", "first_name", "last_name"],
-        },
-      ],
+    //   include: [
+    //     {
+    //       model: User,
+    //       attributes: ["username", "first_name", "last_name"],
+    //     },
+    //   ],
     });
 
     console.log("following data= ", dbFollowingData);

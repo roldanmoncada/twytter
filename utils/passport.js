@@ -23,7 +23,7 @@ module.exports = function (passport, user) {
       if (user) {
         done(null, user.get());
       } else {
-        done(user.errors, null);
+        done(user.errors, null); // sometimes causes an error?? switching it to null, user.error has worked but then also switching it back makes it work again??
       }
     });
   });
