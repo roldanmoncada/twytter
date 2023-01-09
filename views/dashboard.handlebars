@@ -81,7 +81,7 @@
 
 {{#each posts as |post|}}
 
-<div class="course-box">
+<div class="course-box" style="margin-bottom: 100px;">
   {{> post-info post}}
   <a>{{user.username}}</a>|<a href="">github</a>|<a
           href=""
@@ -105,14 +105,29 @@
   </div>
 </div>
 
-<div class="popup" id="openFollowers">
-  <h2 style="margin-top: 20px;">Followers</h2>
-  <p style="margin-top: 20px;">
-    {{#each followers as |follower|}}
-      <div>{{follower}}</div>
-    {{/each}}
-  </p>
-  <button onclick="closePopupFollowers()">ok</button>
-</div>
+  <div class="popup1" id="openFollowing">
+            <h2 style="margin-top: 20px;">Following</h2>
+            <p style="margin-top: 20px;">
+              {{#each following as |allFollowing|}}
+               {{>following allFollowing}}
+
+              {{/each}}
+            </p>
+            <button onclick="closePopupFollowing()">ok</button>
+          </div>
+
+
+
+
+
+ <div class="popup" id="openFollowers">
+            <h2 style="margin-top: 20px;">Followers</h2>
+            <p style="margin-top: 20px;">
+              {{#each followers as |follower|}}
+               {{> followers follower}}
+              {{/each}}
+            </p>
+            <button onclick="closePopupFollowers()">ok</button>
+          </div>
 
 <script src="/js/logout1.js"></script>

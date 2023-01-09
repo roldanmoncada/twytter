@@ -974,7 +974,7 @@ footer {
 }
 
 .styled-table thead tr {
-  background-color:dodgerblue;
+  background-color: dodgerblue;
   color: #ffffff;
   text-align: left;
 }
@@ -990,4 +990,63 @@ footer {
 
 .styled-table tbody tr:nth-of-type(even) {
   background-color: #f3f3f3;
+}
+
+.loading {
+  width: 50px;
+  height: 50px;
+  background: black;
+
+  border-radius: 50%;
+  border-left: 10px solid coral;
+  animation: turn 2s linear infinite;
+  -webkit-animation: turn 2s linear infinite;
+  -moz-animation: turn 2s linear infinite;
+}
+
+@-webkit-keyframes turn {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes turn {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@keyframes turn {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading2 {
+  width: 50px;
+  height: 50px;
+  background: black;
+
+  border-radius: 50%;
+  border-left: 10px solid pink;
+  animation: turn 2s linear infinite;
+  -webkit-animation: turn 2s linear infinite;
+  -moz-animation: turn 2s linear infinite;
+}
+
+@-webkit-keyframes turn {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes turn {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@keyframes turn {
+  100% {
+    transform: rotate(360deg);
+  }
 }
