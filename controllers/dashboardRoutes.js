@@ -28,45 +28,7 @@ router.get("/", withAuth, async (req, res) => {
 
     const posts = dbPostData.map((post) => post.get({ plain: true }));
 
-    //     //getting from db all followers
-    //     const dbFollowerData = await Follower.findAll({
-    //       //raw: true,
-    //       where: {
-    //         following_id: req.session.passport.user.user_id,
-    //       },
-    //       attributes: [ "following_id", "user_id",],
-    //       include: [
-    //         {
-    //           model: User,
-    //           as: 'followers',
-    //           attributes: ["username", "first_name", "last_name"],
-    //         },
-    //       ],
-    //     });
-
-    //     console.log("follower data= ", dbFollowerData);
-    //     //making simple array of user IDs
-    //     const followers = dbFollowerData.map((e) => e.user_id);
-    // console.log(followers);
-    //     //getting from db all that are being followed
-    //     const dbFollowingData = await Follower.findAll({
-    //       //raw: true,
-    //       where: {
-    //         user_id: req.session.passport.user.user_id,
-    //       },
-    //       attributes: ["id", "following_id", "user_id"],
-    //       include: [
-    //         {
-    //           model: User,
-    //           as: 'following',
-    //           attributes: ["username", "first_name", "last_name"],
-    //         },
-    //       ],
-    //     });
-
-    //     console.log("following data= ", dbFollowingData);
-    //     //making simple array of user IDs
-    //     const following = dbFollowingData.map((e) => e.dataValues.following_id);
+     
     const dbUserData = await User.findOne({
       //raw: true,
       where: {
