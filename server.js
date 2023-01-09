@@ -4,6 +4,10 @@ const routes = require("./controllers");
 const exphbs = require("express-handlebars");
 const helpers = require("./utils/helper");
 const path = require("path");
+require('dotenv').config({
+  path: path.resolve(__dirname, '../.env')
+});
+
 // new lib that has not been taught by teacher
 var passport = require("passport");
 

@@ -1,27 +1,27 @@
 [
   {
-    "user_name": "Finn",
+    "username": "Finn",
     "first_name": "Finn",
     "last_name": "Golding",
     "email": "finn@mail.com",
     "password": "password12345"
   },
   {
-    "user_name": "Minny",
+    "username": "Minny",
     "fist_name": "Miriam",
     "last_name": "Nguyen",
     "email": "mgn@gmail.com",
     "password": "password12345"
   },
   {
-    "user_name": "Jane",
+    "username": "Jane",
     "fist_name": "Jane",
     "last_name": "Fernandez",
     "email": "fernjaneo@aol.com",
     "password": "password12345"
   },
   {
-    "user_name": "Tony",
+    "username": "Tony",
     "fist_name": "Antonio",
     "last_name": "Nemer",
     "email": "antonionemern@aol.com",
