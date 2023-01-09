@@ -1,13 +1,13 @@
-# TWYTTER 
+# TWYTTER <!-- omit in toc -->
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-  ## Table of Contents 
-  - [Description] (#description)
-  - [Usage] (#usage)
-  - [Contribution] (#contribution)
-  - [Credits] (#credits)
-  - [Demonstration] (#demonstration)
+  ## Table of Contents <!-- omit in toc -->
+- [Description](#description)
+- [Usage](#usage)
+- [Contribution](#contribution)
+- [Credits](#credits)
+- [Demonstration](#demonstration)
   
 ## Description
 Given the uncertainty regarding the the future of the popular social media platform Twitter, we decided to create a clone, whith which users can send posts, make comments on posts, and follow other users. Twytter is the perfect platform for users to come together to share and comment, therefore creating a fair, safe, civilized, and informative online community. 
