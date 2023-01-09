@@ -10,8 +10,10 @@ router.post("/:following", withAuth, async (req, res) => {
       user_id: userFolID,
       following_id: following,
     },
+    
     // user_id: req.session.user_id,
   });
+  console.log("following means = ", following);
   //if not following yet, create follower
   if (!results) {
     try {

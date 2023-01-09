@@ -26,7 +26,7 @@ router.get("/", async (req, res) => {
   try {
     // I think it would make more sense to have this here instead of the /login route. Because having it here will make it effectively impossible for the session to be logged in when accessing the /login endpoint.
     const dbPostData = await Post.findAll({
-      attributes: ["id", "title", "post_content"],
+      attributes: ["id", "title", "post_content", "date_created"],
       include: [
         {
           model: Comment,
@@ -41,6 +41,8 @@ router.get("/", async (req, res) => {
           attributes: ["username", "first_name", "last_name"],
         },
       ],
+      //limit: 10, 
+      order: [["date_created", "DESC"]],
     //  order: [['updatedAt', 'DESC']],
     });
 
