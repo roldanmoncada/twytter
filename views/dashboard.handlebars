@@ -39,7 +39,7 @@
         </li>
         <li>
           <a href="/api/users/list-all" class="table">
-            <i class="fas fa-user"></i><span
+            <i class="fas fa-users-viewfinder"></i><span
               class="nav-item"
             >Users</span></a>
         </li>
@@ -85,7 +85,7 @@
   {{> post-info post}}
   <a>{{user.username}}</a>|<a href="">github</a>|<a
           href=""
-        >12/27/2022</a>|<a href="/dashboard/post/{{post.id}}">{{post.comments.length}} comments</a>
+        >{{format_date post.created_at}} </a>|<a href="/dashboard/post/{{post.id}}">{{post.comments.length}} comments</a>
   <div style="text-align: right; border: 0;">
     
  <button class="startButton1" >

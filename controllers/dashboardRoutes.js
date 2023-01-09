@@ -9,11 +9,17 @@ router.get("/", withAuth, async (req, res) => {
       where: {
         user_id: req.session.passport.user.user_id,
       },
-      attributes: ["id", "title", "post_content"],
+      attributes: ["id", "title", "post_content", "created_at"],
       include: [
         {
           model: Comment,
-          attributes: ["id", "comment_text", "post_id", "user_id"],
+          attributes: [
+            "id",
+            "comment_text",
+            "post_id",
+            "user_id",
+            "created_at",
+          ],
           include: {
             model: User,
             attributes: ["username", "first_name", "last_name"],
@@ -34,13 +40,13 @@ router.get("/", withAuth, async (req, res) => {
       where: {
         following_id: req.session.passport.user.user_id,
       },
-      attributes: [ "following_id", "user_id",],
-    //   include: [
-    //     {
-    //       model: User,
-    //       attributes: ["username", "first_name", "last_name"],
-    //     },
-    //   ],
+      attributes: ["following_id", "user_id"],
+      //   include: [
+      //     {
+      //       model: User,
+      //       attributes: ["username", "first_name", "last_name"],
+      //     },
+      //   ],
     });
 
     console.log("follower data= ", dbFollowerData);
@@ -54,12 +60,12 @@ router.get("/", withAuth, async (req, res) => {
         user_id: req.session.passport.user.user_id,
       },
       attributes: ["id", "following_id", "user_id"],
-    //   include: [
-    //     {
-    //       model: User,
-    //       attributes: ["username", "first_name", "last_name"],
-    //     },
-    //   ],
+      //   include: [
+      //     {
+      //       model: User,
+      //       attributes: ["username", "first_name", "last_name"],
+      //     },
+      //   ],
     });
 
     console.log("following data= ", dbFollowingData);
@@ -69,7 +75,7 @@ router.get("/", withAuth, async (req, res) => {
     res.render("dashboard", {
       posts,
       logged_in: true,
-      username: req.session.passport.user.username, 
+      username: req.session.passport.user.username,
       first_name: req.session.passport.user.first_name,
       last_name: req.session.passport.user.last_name,
       // followers: followers,
@@ -113,11 +119,11 @@ router.get("/edit/:id", withAuth, (req, res) => {
     where: {
       id: req.params.id,
     },
-    attributes: ["id", "title", "post_content"],
+    attributes: ["id", "title", "post_content", "created_at"],
     include: [
       {
         model: Comment,
-        attributes: ["id", "comment_text", "post_id", "user_id"],
+        attributes: ["id", "comment_text", "post_id", "user_id", "created_at"],
         include: {
           model: User,
           attributes: ["username", "first_name", "last_name"],
@@ -154,7 +160,7 @@ router.get("/create", withAuth, async (req, res) => {
       where: {
         user_id: req.session.passport.user.user_id,
       },
-      attributes: ["id", "title", "post_content"],
+      attributes: ["id", "title", "post_content", "created_at"],
       include: [
         {
           model: User,
@@ -162,7 +168,13 @@ router.get("/create", withAuth, async (req, res) => {
         },
         {
           model: Comment,
-          attributes: ["id", "comment_text", "post_id", "user_id"],
+          attributes: [
+            "id",
+            "comment_text",
+            "post_id",
+            "user_id",
+            "created_at",
+          ],
           include: {
             model: User,
             attributes: ["username", "first_name", "last_name"],
@@ -182,11 +194,11 @@ router.get("/post/:id", withAuth, (req, res) => {
     where: {
       id: req.params.id,
     },
-    attributes: ["id", "title", "post_content"],
+    attributes: ["id", "title", "post_content", "created_at"],
     include: [
       {
         model: Comment,
-        attributes: ["id", "comment_text", "post_id", "user_id"],
+        attributes: ["id", "comment_text", "post_id", "user_id", "created_at"],
         include: {
           model: User,
           attributes: ["username", "first_name", "last_name"],
