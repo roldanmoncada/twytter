@@ -28,52 +28,87 @@ router.get("/", withAuth, async (req, res) => {
 
     const posts = dbPostData.map((post) => post.get({ plain: true }));
 
-    //getting from db all followers
-    const dbFollowerData = await Follower.findAll({
+    //     //getting from db all followers
+    //     const dbFollowerData = await Follower.findAll({
+    //       //raw: true,
+    //       where: {
+    //         following_id: req.session.passport.user.user_id,
+    //       },
+    //       attributes: [ "following_id", "user_id",],
+    //       include: [
+    //         {
+    //           model: User,
+    //           as: 'followers',
+    //           attributes: ["username", "first_name", "last_name"],
+    //         },
+    //       ],
+    //     });
+
+    //     console.log("follower data= ", dbFollowerData);
+    //     //making simple array of user IDs
+    //     const followers = dbFollowerData.map((e) => e.user_id);
+    // console.log(followers);
+    //     //getting from db all that are being followed
+    //     const dbFollowingData = await Follower.findAll({
+    //       //raw: true,
+    //       where: {
+    //         user_id: req.session.passport.user.user_id,
+    //       },
+    //       attributes: ["id", "following_id", "user_id"],
+    //       include: [
+    //         {
+    //           model: User,
+    //           as: 'following',
+    //           attributes: ["username", "first_name", "last_name"],
+    //         },
+    //       ],
+    //     });
+
+    //     console.log("following data= ", dbFollowingData);
+    //     //making simple array of user IDs
+    //     const following = dbFollowingData.map((e) => e.dataValues.following_id);
+    const dbUserData = await User.findOne({
       //raw: true,
       where: {
-        following_id: req.session.passport.user.user_id,
+        id: req.session.passport.user.user_id,
       },
-      attributes: [ "following_id", "user_id",],
-    //   include: [
-    //     {
-    //       model: User,
-    //       attributes: ["username", "first_name", "last_name"],
-    //     },
-    //   ],
+      include: [
+        {
+          all: true,
+          nested: true,
+          include: [
+            {
+              all: true,
+              nested: true,
+            },
+          ],
+        },
+      ],
     });
-
-    console.log("follower data= ", dbFollowerData);
-    //making simple array of user IDs
-    const followers = dbFollowerData.map((e) => e.user_id);
-
-    //getting from db all that are being followed
-    const dbFollowingData = await Follower.findAll({
-      //raw: true,
-      where: {
-        user_id: req.session.passport.user.user_id,
-      },
-      attributes: ["id", "following_id", "user_id"],
-    //   include: [
-    //     {
-    //       model: User,
-    //       attributes: ["username", "first_name", "last_name"],
-    //     },
-    //   ],
+    console.log("dbUserData is = ", dbUserData);
+    const followers = dbUserData.followers.map((e) => {
+      return {
+        first_name: e.dataValues.user_follower.dataValues.first_name,
+        last_name: e.dataValues.user_follower.dataValues.last_name,
+      };
     });
+    const following = dbUserData.following.map((e) => {
+      return {
+        first_name: e.dataValues.user_follower.dataValues.first_name,
+        last_name: e.dataValues.user_follower.dataValues.last_name,
+      };
+    });
+    console.log("db following =", following);
 
-    console.log("following data= ", dbFollowingData);
-    //making simple array of user IDs
-    const following = dbFollowingData.map((e) => e.following_id);
     //rendering all info in dashboard
     res.render("dashboard", {
       posts,
       logged_in: true,
-      username: req.session.passport.user.username, 
+      username: req.session.passport.user.username,
       first_name: req.session.passport.user.first_name,
       last_name: req.session.passport.user.last_name,
-      // followers: followers,
-      // following: following,
+      followers: followers,
+      following: following,
     });
   } catch (error) {
     res.status(500).json(error);
