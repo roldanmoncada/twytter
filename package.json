@@ -2,7 +2,6 @@
   "name": "twytter",
   "version": "1.0.0",
   "description": "",
-
   "engines": {
     "node": "16.18.0"
   },
@@ -35,7 +34,6 @@
     "mysql2": "^2.3.3",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
-
     "sequelize": "^6.28.0"
   },
   "devDependencies": {

@@ -20,7 +20,7 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-     
+
     first_name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -44,7 +44,6 @@ User.init(
         len: [4],
       },
     },
-
   },
   //hooks to hash password before creating and before updating
   {

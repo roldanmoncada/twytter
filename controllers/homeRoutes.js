@@ -26,11 +26,17 @@ router.get("/", async (req, res) => {
   try {
     // I think it would make more sense to have this here instead of the /login route. Because having it here will make it effectively impossible for the session to be logged in when accessing the /login endpoint.
     const dbPostData = await Post.findAll({
-      attributes: ["id", "title", "post_content", "date_created"],
+      attributes: ["id", "title", "post_content", "created_at"],
       include: [
         {
           model: Comment,
-          attributes: ["id", "comment_text", "post_id", "user_id"],
+          attributes: [
+            "id",
+            "comment_text",
+            "post_id",
+            "user_id",
+            "created_at",
+          ],
           include: {
             model: User,
             attributes: ["username", "first_name", "last_name"],
@@ -41,9 +47,9 @@ router.get("/", async (req, res) => {
           attributes: ["username", "first_name", "last_name"],
         },
       ],
-      //limit: 10, 
-      order: [["date_created", "DESC"]],
-    //  order: [['updatedAt', 'DESC']],
+      //limit: 10,
+      // order: [["date_created", "DESC"]],
+      //  order: [['updatedAt', 'DESC']],
     });
 
     const posts = dbPostData.map((post) => post.get({ plain: true }));

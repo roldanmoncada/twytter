@@ -1,4 +1,4 @@
-<div style="height: 100vh;">
+<div style="height: auto;  min-height: 100vh;">
   
   
 {{#if logged_in}}
@@ -17,10 +17,10 @@
 
 {{> post-info post}}
 
-<div style="text-align: right; border: 0;">
+<div style="text-align: right; border: 0; margin-bottom:100px;">
  <a>{{user.username}}</a>|<a href="">github</a>|<a
           href=""
-        >12/27/2022</a>|<a href="dashboard/post/{{post.id}}">{{post.comments.length}} comments</a>
+        >{{format_date post.created_at}}</a>|<a href="dashboard/post/{{post.id}}">{{post.comments.length}} comments</a>
 </div>
 
 {{else}}
