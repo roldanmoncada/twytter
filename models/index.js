@@ -35,7 +35,7 @@ User.hasMany(Follower, {
 });
 
 Follower.belongsTo(User, {
-  //as: "following",
+  as: "user_follower",
   foreignKey: "user_id",
 });
 User.hasMany(Follower, {
@@ -44,7 +44,7 @@ User.hasMany(Follower, {
 });
 
 Follower.belongsTo(User, {
-  //as: "followers",
+  as: "user_following",
  foreignKey: "following_id",
 })
 
