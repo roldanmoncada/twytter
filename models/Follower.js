@@ -19,7 +19,7 @@ Follower.init(
         key: "id",
       },
     },
-//other users that are followers, meaning following User
+    //other users that are followers, meaning following User
     user_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -30,7 +30,7 @@ Follower.init(
   },
   {
     sequelize,
-    timestamps: false,
+
     freezeTableName: true,
     underscored: true,
     modelName: "follower",

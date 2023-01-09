@@ -9,11 +9,17 @@ router.get("/", withAuth, async (req, res) => {
       where: {
         user_id: req.session.passport.user.user_id,
       },
-      attributes: ["id", "title", "post_content"],
+      attributes: ["id", "title", "post_content", "created_at"],
       include: [
         {
           model: Comment,
-          attributes: ["id", "comment_text", "post_id", "user_id"],
+          attributes: [
+            "id",
+            "comment_text",
+            "post_id",
+            "user_id",
+            "created_at",
+          ],
           include: {
             model: User,
             attributes: ["username", "first_name", "last_name"],
@@ -34,6 +40,7 @@ router.get("/", withAuth, async (req, res) => {
       where: {
         id: req.session.passport.user.user_id,
       },
+
       include: [
         {
           all: true,
@@ -59,6 +66,34 @@ router.get("/", withAuth, async (req, res) => {
         first_name: e.dataValues.user_follower.dataValues.first_name,
         last_name: e.dataValues.user_follower.dataValues.last_name,
       };
+
+      attributes: ["following_id", "user_id"],
+      //   include: [
+      //     {
+      //       model: User,
+      //       attributes: ["username", "first_name", "last_name"],
+      //     },
+      //   ],
+    });
+
+    console.log("follower data= ", dbFollowerData);
+    //making simple array of user IDs
+    const followers = dbFollowerData.map((e) => e.user_id);
+
+    //getting from db all that are being followed
+    const dbFollowingData = await Follower.findAll({
+      //raw: true,
+      where: {
+        user_id: req.session.passport.user.user_id,
+      },
+      attributes: ["id", "following_id", "user_id"],
+      //   include: [
+      //     {
+      //       model: User,
+      //       attributes: ["username", "first_name", "last_name"],
+      //     },
+      //   ],
+
     });
     console.log("db following =", following);
 
@@ -110,11 +145,11 @@ router.get("/edit/:id", withAuth, (req, res) => {
     where: {
       id: req.params.id,
     },
-    attributes: ["id", "title", "post_content"],
+    attributes: ["id", "title", "post_content", "created_at"],
     include: [
       {
         model: Comment,
-        attributes: ["id", "comment_text", "post_id", "user_id"],
+        attributes: ["id", "comment_text", "post_id", "user_id", "created_at"],
         include: {
           model: User,
           attributes: ["username", "first_name", "last_name"],
@@ -151,7 +186,7 @@ router.get("/create", withAuth, async (req, res) => {
       where: {
         user_id: req.session.passport.user.user_id,
       },
-      attributes: ["id", "title", "post_content"],
+      attributes: ["id", "title", "post_content", "created_at"],
       include: [
         {
           model: User,
@@ -159,7 +194,13 @@ router.get("/create", withAuth, async (req, res) => {
         },
         {
           model: Comment,
-          attributes: ["id", "comment_text", "post_id", "user_id"],
+          attributes: [
+            "id",
+            "comment_text",
+            "post_id",
+            "user_id",
+            "created_at",
+          ],
           include: {
             model: User,
             attributes: ["username", "first_name", "last_name"],
@@ -179,11 +220,11 @@ router.get("/post/:id", withAuth, (req, res) => {
     where: {
       id: req.params.id,
     },
-    attributes: ["id", "title", "post_content"],
+    attributes: ["id", "title", "post_content", "created_at"],
     include: [
       {
         model: Comment,
-        attributes: ["id", "comment_text", "post_id", "user_id"],
+        attributes: ["id", "comment_text", "post_id", "user_id", "created_at"],
         include: {
           model: User,
           attributes: ["username", "first_name", "last_name"],
