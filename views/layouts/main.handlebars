@@ -1,0 +1,112 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TWYTTER</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="inner_header">
+        <div class="logoContainer">
+          <h1>TW<span>Y</span>TTER</h1>
+        </div>
+        {{#if logged_in}}
+
+          <ul class="navigation">
+            <a href="/"><li>Home</li></a>
+            <a href="/dashboard/create"><li>Create Post</li></a>
+            <a href="/dashboard"><li>Dashboard</li></a>
+            <a style="cursor:pointer;" class="LogOut"><li>Logout</li></a>
+          </ul>
+
+        {{else}}
+
+          <ul class="navigation">
+            <a href="/"><li>Home</li></a>
+            <a href="/login"><li>LogIn</li></a>
+            <a href="/signup"><li>SignUp</li></a>
+          </ul>
+        {{/if}}
+      </div>
+    </header>
+
+    {{{body}}}
+
+    <footer>
+
+      <div class="inner_footer">
+        <div class="logoContainer">
+          <h4>© 2023 TW<span>Y</span>TTER, Inc.</h4>
+        </div>
+        <ul class="navigation navigation2">
+          <a href="#" id="learnMoreBtn" onclick="openPopup()"><li>About</li></a>
+          <div class="popup" id="popup">
+            <h2 style="margin-top: 20px;">Who We Are</h2>
+            <p style="margin-top: 20px;">Lorem ipsum, dolor sit amet consectetur
+              adipisicing elit. Labore similique est fugiat? Ipsum quas, et
+              dolores nobis exercitationem, pariatur officiis provident, sunt
+              reiciendis consequatur commodi ea laboriosam explicabo
+              perspiciatis accusamus. Lorem ipsum dolor sit amet consectetur
+              adipisicing elit. Ullam tenetur ratione recusandae a laboriosam
+              tempore error cumque vitae assumenda in repudiandae nesciunt,
+              voluptatem provident unde quisquam doloremque itaque! Eius, aut.
+            </p>
+            <button onclick="closePopup()">ok</button>
+          </div>
+
+          {{! Followers }}
+          {{!-- <div class="popup" id="openFollowers">
+            <h2 style="margin-top: 20px;">Followers</h2>
+            <p style="margin-top: 20px;">
+              {{#each followers}}
+                <div>{{first_name}}</div>
+              {{/each}}
+            </p>
+            <button onclick="closePopupFollowers()">ok</button>
+          </div> --}}
+
+          {{!Following }}
+          <div class="popup1" id="openFollowing">
+            <h2 style="margin-top: 20px;">Following</h2>
+            <p style="margin-top: 20px;">
+              {{#each following as |allFollowing|}}
+               {{>following allFollowing}}
+
+              {{/each}}
+            </p>
+            <button onclick="closePopupFollowing()">ok</button>
+          </div>
+          <a href="https://github.com/roldanmoncada/twytter"><li>Github</li></a>
+          <a href="mailto:contact@twytter.com"><li>Contact</li></a>
+        </ul>
+      </div>
+    </footer>
+    <script>
+      let popup = document.getElementById("popup"); function openPopup() {
+      popup.classList.add("open-popup"); } function closePopup() {
+      popup.classList.remove("open-popup"); }
+    </script>
+
+    <script>
+      let popUpFollowers = document.getElementById("openFollowers"); function
+      openPopupFollowers() { popUpFollowers.classList.add("open-popup"); }
+      function closePopupFollowers() {
+      popUpFollowers.classList.remove("open-popup"); }
+    </script>
+    <script>
+      let popUpFollowing = document.getElementById("openFollowing"); function
+      openFollowing() { popUpFollowing.classList.add("open-popup1"); } function
+      closePopupFollowing() { popUpFollowing.classList.remove("open-popup1"); }
+    </script>
+    <script
+      src="https://kit.fontawesome.com/acd114ba49.js"
+      crossorigin="anonymous"
+    ></script>
+    {{#if logged_in}}
+      <script src="/js/logout.js"></script>
+    {{/if}}
+
+  </body>
+</html>

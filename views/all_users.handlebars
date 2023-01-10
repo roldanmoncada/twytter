@@ -1,0 +1,100 @@
+<div class="body">
+  <aside class="container-post">
+    <nav>
+      <ul>
+        <li>
+          <a href="/dashboard" class="logo">
+            <span class="div"></span><span class="nav-item">
+              Your Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="/" class="table">
+            <i class="fas fa-house"></i><span class="nav-item">Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="" class="table">
+            <i class="fas fa-user"></i><span
+              class="nav-item"
+            >{{username}}</span></a>
+        </li>
+        <li>
+          <a href="#" class="table">
+            <i class="fas fa-feather"></i><span class="nav-item">{{first_name}}
+              {{last_name}}</span></a>
+        </li>
+        <li>
+          <a href="#" class="table">
+            <i class="fas fa-plane-departure"></i><span
+              class="nav-item"
+            >Followers</span></a>
+        </li>
+        <li>
+          <a href="#" class="table">
+            <i class="fas fa-plane-arrival"></i><span
+              class="nav-item"
+            >Following</span></a>
+        </li>
+        <li>
+          <a href="/api/users/list-all" class="table">
+            <i class="fas fa-users-viewfinder"></i><span class="nav-item">Users</span></a>
+        </li>
+        <li>
+          <a href="#" class="logout1" id="LogOut">
+            <i class="fas fa-sign-out-alt"></i><span
+              class="nav-item"
+            >logout</span></a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <div class="container-main">
+    <div class="main-course">
+      <h1>All registered Users</h1>
+
+      {{#if dbUserData.length}}
+
+        <table class="styled-table">
+          <thead>
+            <tr>
+            <th>Username</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Follow / Un-Follow</th>
+          </tr>
+          </thead>
+          <tbody>
+            {{#each dbUserData as |user|}}
+            <tr>
+              <td>
+                <a href="user's main page route">
+                {{user.username}}
+                </a>
+                </td>
+              <td>{{user.first_name}}</td>
+              <td>{{user.last_name}}</td>
+              {{#ifEquals user.id ../currentUserId }}
+                <td>Myself</td>
+              {{else}}
+                {{#if user.followed}}
+                <td><button id="{{user.id}}" type="button" class="unfollow-user-btn" onclick="unFollowUserClick(this.id, this)" style="border-radius: 15%; padding:2%;">Unfollow</button></td>
+                {{else}}
+                <td><button id="{{user.id}}" type="button" class="follow-user-btn" onclick="followUserClick(this.id, this)" style="border-radius: 15%; padding:2%;">Follow</button></td>
+                {{/if}}
+              {{/ifEquals}}
+            </tr>
+          {{/each}}
+          </tbody>
+        </table>
+      {{else}}
+        <h3>No users.</h3>
+
+      {{/if}}
+    </div>
+  </div>
+</div>
+
+<script src="/js/logout1.js"></script>
+<script src="/js/follower.js"></script>

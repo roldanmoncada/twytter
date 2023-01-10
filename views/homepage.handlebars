@@ -1,0 +1,37 @@
+<div style="height: auto;  min-height: 100vh;">
+  
+  
+{{#if logged_in}}
+<div class="text-end" style="text-align: right; border: 0;">
+    <a
+      href="/dashboard"
+      style="color: black; text-decoration: none; font-size: 24px;"
+    >
+      &larr; back to dashboard</a>
+      </div>
+{{#each posts as |post|}}
+
+
+
+
+
+{{> post-info post}}
+
+<div style="text-align: right; border: 0; margin-bottom:100px;">
+ <a>{{user.username}}</a>|<a href="">github</a>|<a
+          href=""
+        >{{format_date post.created_at}}</a>|<a href="dashboard/post/{{post.id}}">{{post.comments.length}} comments</a>
+</div>
+
+{{else}}
+<div style="height: 100vh;">
+<h1>There are no posts</h1>
+</div>
+{{/each}}
+{{else}}
+
+  {{> login-partial}}
+
+{{/if}}
+
+</div>
