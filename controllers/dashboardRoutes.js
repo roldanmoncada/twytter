@@ -31,16 +31,12 @@ router.get("/", withAuth, async (req, res) => {
         },
       ],
     });
-
     const posts = dbPostData.map((post) => post.get({ plain: true }));
-
-     
     const dbUserData = await User.findOne({
       //raw: true,
       where: {
         id: req.session.passport.user.user_id,
       },
-
       include: [
         {
           all: true,
@@ -63,40 +59,12 @@ router.get("/", withAuth, async (req, res) => {
     });
     const following = dbUserData.following.map((e) => {
       return {
-        first_name: e.dataValues.user_follower.dataValues.first_name,
-        last_name: e.dataValues.user_follower.dataValues.last_name,
+        first_name: e.dataValues.user_following.dataValues.first_name,
+        last_name: e.dataValues.user_following.dataValues.last_name,
       };
-
-      attributes: ["following_id", "user_id"],
-      //   include: [
-      //     {
-      //       model: User,
-      //       attributes: ["username", "first_name", "last_name"],
-      //     },
-      //   ],
-    });
-
-    console.log("follower data= ", dbFollowerData);
-    //making simple array of user IDs
-    const followers = dbFollowerData.map((e) => e.user_id);
-
-    //getting from db all that are being followed
-    const dbFollowingData = await Follower.findAll({
-      //raw: true,
-      where: {
-        user_id: req.session.passport.user.user_id,
-      },
-      attributes: ["id", "following_id", "user_id"],
-      //   include: [
-      //     {
-      //       model: User,
-      //       attributes: ["username", "first_name", "last_name"],
-      //     },
-      //   ],
-
     });
     console.log("db following =", following);
-
+    console.log("db follower =", followers);
     //rendering all info in dashboard
     res.render("dashboard", {
       posts,
@@ -111,7 +79,6 @@ router.get("/", withAuth, async (req, res) => {
     res.status(500).json(error);
   }
 });
-
 // getting the current user's profile page. Which is different from their dashboard view (frontend code missing? )
 router.get("/user", withAuth, async (req, res) => {
   try {
@@ -254,3 +221,4 @@ router.get("/post/:id", withAuth, (req, res) => {
     });
 });
 module.exports = router;
+

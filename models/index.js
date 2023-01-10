@@ -30,7 +30,7 @@ Comment.belongsTo(Post, {
 });
 
 User.hasMany(Follower, {
-   as: "following",
+  as: "following",
   foreignKey: "user_id",
 });
 
@@ -45,7 +45,7 @@ User.hasMany(Follower, {
 
 Follower.belongsTo(User, {
   as: "user_following",
- foreignKey: "following_id",
-})
+  foreignKey: "following_id",
+});
 
 module.exports = { User, Post, Comment, Follower };
